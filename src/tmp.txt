@@ -1,0 +1,19 @@
+city = city.toLowerCase();
+        boolean added = true;
+        added = added && PostOfficesDB.addCity(city.toLowerCase());
+        added = added && PostOfficesDB.createPostOffice(city, new PostOffice(city+" office"));
+        try{
+            if(added) {
+                PostOfficesDB.getAPostOfficeOfACity(city).assignManager(new PostalManager(city + " manager", "Postalmanager@123", city));
+            }
+            PostalManagerPostmanAssistance postalManagerPostmanService = PostOfficesDB.getManagerOfACity(city);
+            PostMan postMan = new PostMan(city + " post man", "Postman@123", city, new PostManService(postalManagerPostmanService));
+            added = added && PostOfficesDB.addPostManAndCity(postMan, city);
+            PostOfficesDB.getAPostOfficeOfACity(city).assignPostMan(postMan);
+        }catch(Exception e){
+            return false;
+        }
+        return added;
+
+
+city = city.lowercase()
